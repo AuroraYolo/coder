@@ -1,3 +1,6 @@
+## 文档地址
+https://github.com/phpbrew/phpbrew/wiki/Extension-Installer
+
 ## swoole
 ```bash
 phpbrew ext install swoole --  --enable-openssl --with-openssl-dir=/usr/local/opt/openssl@1.1/  ##根据自己主机目录位置填写
