@@ -9,3 +9,8 @@ phpbrew ext install swoole --  --enable-openssl --with-openssl-dir=/usr/local/op
 ```bash
 phpbrew ext install redis
 ```
+
+## amqp
+```bash
+phpbrew ext install amqp beta  -- --with-librabbitmq-dir=/usr/local/Cellar/rabbitmq-c/0.10.0  ## librabbitmq地址
+```
