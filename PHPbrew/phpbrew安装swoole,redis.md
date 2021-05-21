@@ -17,3 +17,18 @@ phpbrew ext install redis
 ```bash
 phpbrew ext install amqp beta  -- --with-librabbitmq-dir=/usr/local/Cellar/rabbitmq-c/0.10.0  ## librabbitmq地址
 ```
+
+## swow
+composer 下载swow包
+```bash
+composer require swow/swow:dev-develop
+```
+composer vendor bin执行编译命令
+```bash
+./vendor/bin/swow-builder
+```
+运行swow 并查看swow版本信息
+```bash
+php -n -d extension=/Users/heping/Serendipity-Job//vendor/swow/swow/ext/modules/swow.so --ri swow
+```
+这样安装的好处是可以通过composer 控制swow的版本
