@@ -32,3 +32,10 @@ composer vendor bin执行编译命令
 php -n -d extension=/Users/heping/Serendipity-Job//vendor/swow/swow/ext/modules/swow.so --ri swow
 ```
 这样安装的好处是可以通过composer 控制swow的版本
+
+##  iconv
+```bash
+ brew install libiconv
+phpbrew ext install iconv -- --with-iconv=/usr/local/Cellar/libiconv/1.16
+```
+
