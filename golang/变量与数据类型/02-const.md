@@ -36,7 +36,7 @@ func main() {
 	fmt.Printf("b: %v\n", b)
 	fmt.Printf("c: %v\n", c)
 }
- */
+*/
 /*
 func main()  {
 	//在每一个 const 关键字出现时被重置为 0,然后在下一个 const 出现之前，每出现一次 iota，其所代表的数字会自动增 1
@@ -65,7 +65,7 @@ func main()  {
 	fmt.Printf("y: %v\n", y)
 }
 
- */
+*/
 //如果两个 const 的赋值语句的表达式是一样的，那么还可以省略后一个赋值表达式。因此，上面的前两个 const 语句可简写为：
 const (
 	c0 = iota
@@ -79,7 +79,19 @@ const (
 	w
 )
 
-func main()  {
+//枚举
+const (
+	Sunday = iota
+	Monday
+	Tuesday
+	Wednesday
+	Thursday
+	Friday
+	Saturday
+	numberOfDays
+)
+
+func main() {
 	fmt.Printf("c0: %v\n", c0)
 	fmt.Printf("c1: %v\n", c1)
 	fmt.Printf("c2: %v\n", c2)
@@ -88,4 +100,6 @@ func main()  {
 	fmt.Printf("w: %v\n", w)
 }
 
+//常量的作用域
+//和函数体外声明的变量一样，以大写字母开头的常量在包外可见（类似于 public 修饰的类属性），比如上面介绍的 Pi、Sunday 等，而以小写字母开头的常量只能在包内访问（类似于通过 protected 修饰的类属性），比如 zero、numberOfDays 等，后面在介绍包的可见性时还会详细介绍。函数体内声明的常量只能在函数体内生效。
 ```
