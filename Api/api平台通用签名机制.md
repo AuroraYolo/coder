@@ -57,5 +57,6 @@ $hmacStr = hash_hmac('sha1', $stringToSign, $appSecret, true);
 //5.返回签名值
 $signature = base64_encode($hmacStr);
 ```
-
+## github地址
+https://github.com/fs-platform/laravel-api-signature
 
