@@ -39,3 +39,11 @@ php -n -d extension=/Users/heping/Serendipity-Job//vendor/swow/swow/ext/modules/
 phpbrew ext install iconv -- --with-iconv=/usr/local/Cellar/libiconv/1.16
 ```
 
+## gd
+```bash
+phpbrew ext install gd -- --with-gd=shared \
+    --with-png-dir=/usr/local/opt/lib \
+    --with-jpeg-dir=/usr/local/opt/jpeg \
+    --with-freetype-dir=/usr/local/opt/freetype  \
+    --enable-gd-native-ttf
+```
