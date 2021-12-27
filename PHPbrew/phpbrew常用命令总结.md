@@ -31,7 +31,8 @@ phpbrew -d install 7.4.23 \
     --with-png-dir=/usr/local/opt/lib \
     --with-jpeg-dir=/usr/local/opt/jpeg \
     --with-freetype-dir=/usr/local/opt/freetype \
-    --enable-gd-native-ttf
+    --enable-gd-native-ttf \
+    darwin64-x86_64-cc
 ````
 # 使用指定的php版本
 
