@@ -40,3 +40,22 @@ phpbrew -d install 7.4.23 \
 ```bash
 phpbrew use 8.0.6
 ```
+
+# 问题
+```
+1.checking for openssl >= 1.0.1... no
+configure: error: Package requirements (openssl >= 1.0.1) were not met:
+
+No package 'openssl' found
+```
+解决办法:
+```
+  echo 'export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"' >> ~/.zshrc
+
+  export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
+  export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+
+  export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
+```
+
+
