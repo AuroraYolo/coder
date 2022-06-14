@@ -74,3 +74,57 @@ Send-Q 表示全连接队列的最⼤⻓度；
 从半连接队列移除，然后创建新的完全的连接，并将其增加到全连接队列 ，等待进程调⽤ accept() 函数
 时把连接取出来。
 ```
+## ⽹络吞吐率和 PPS 如何查看？
+```bash
+## 显示⽹⼝的统计数据； 数字1 表示每隔1秒 输出一组数据
+sar -n DEV 1
+Linux 5.4.0-77-generic (VM-0-16-ubuntu) 	06/14/22 	_x86_64_	(2 CPU)
+
+22:38:57        IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+22:38:58    veth21d28fa      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+22:38:58           lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+22:38:58    veth4195d13      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+sar -n EDEV，显示关于⽹络错误的统计数据；
+sar -n TCP，显示 TCP 的统计数据
+
+
+rxpck/s 和 txpck/s 分别是接收和发送的 PPS，单位为包 / 秒。
+rxkB/s 和 txkB/s 分别是接收和发送的吞吐率，单位是 KB/ 秒。
+rxcmp/s 和 txcmp/s 分别是接收和发送的压缩数据包数，单位是包 / 秒。
+
+
+```
+```bash
+对于带宽，我们可以使⽤ ethtool 命令来查询，它的单位通常是 Gb/s 或者 Mb/s ，不过注意这⾥⼩写
+字⺟ b ，表示⽐特⽽不是字节。我们通常提到的千兆⽹卡、万兆⽹卡等，单位也都是⽐特（bit）。如下
+你可以看到， eth0 ⽹卡就是⼀个千兆⽹卡
+
+ethtool eth0 | grep Speed
+ Speed: 1000Mb/s
+```
+
+## 连通性和延时如何查看？
+
+```bash
+要测试本机与远程主机的连通性和延时，通常是使⽤ ping 命令，它是基于 ICMP 协议的，⼯作在⽹络
+层。
+⽐如，如果要测试本机到 192.168.12.20 IP 地址的连通性和延时：
+## -c 5表示发送5次 icmp包
+ping www.baidu.com -c 5
+PING www.a.shifen.com (110.242.68.3) 56(84) bytes of data.
+64 bytes from 110.242.68.3 (110.242.68.3): icmp_seq=1 ttl=51 time=33.3 ms
+64 bytes from 110.242.68.3 (110.242.68.3): icmp_seq=2 ttl=51 time=33.3 ms
+64 bytes from 110.242.68.3 (110.242.68.3): icmp_seq=3 ttl=51 time=33.3 ms
+64 bytes from 110.242.68.3 (110.242.68.3): icmp_seq=4 ttl=51 time=33.3 ms
+64 bytes from 110.242.68.3 (110.242.68.3): icmp_seq=5 ttl=51 time=33.3 ms
+
+--- www.a.shifen.com ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4006ms
+rtt min/avg/max/mdev = 33.297/33.304/33.319/0.007 ms
+
+显示的内容主要包含 icmp_seq （ICMP 序列号）、 TTL （⽣存时间，或者跳数）以及 time （往返延
+时），⽽且最后会汇总本次测试的情况，如果⽹络没有丢包， packet loss 的百分⽐就是 0。
+不过，需要注意的是， ping 不通服务器并不代表 HTTP 请求也不通，因为有的服务器的防⽕墙是会禁⽤
+ICMP 协议的。
+```
