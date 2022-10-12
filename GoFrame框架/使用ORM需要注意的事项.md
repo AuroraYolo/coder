@@ -1,5 +1,5 @@
 # 1.需要在main.go文件手动引入mysql包
-
+https://goframe.org/pages/viewpage.action?pageId=7296348
 ```go
 package main
 
