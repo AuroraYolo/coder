@@ -1,4 +1,5 @@
 # Go支持继承，不支持重写方法
+
 ````go
 package extension_test
 
@@ -111,4 +112,71 @@ func main()  {
 //该订单总共需要支付 8000 元
 ```
 
-# 面向对象:结构体里的Tag用法
+# 面向对象:结构体里的Tag用法(用于定义元数据)
+
+## JSON标签
+
+JSON字符串是我们常用的数据传输格式，由一组k-v键值对组成，很多时候，我们需要将接收到的JSON串与我们规定好的数据结构体绑定，方便直接调用，JSON标签能很便捷的完成这一工作,这些标签能被encoding/json包中的编码与解码工具解析。
+
+| Tag                               |                                          作用 |
+|:----------------------------------|--------------------------------------------:|
+| "json_name"                       | 将结构体的属性与json_name的对应（可以省略，与属性同名，且会在名字后面加 s） |
+| "-"                               |                             说明结构体的该属性不参与序列化 | 
+| "json_name,omitempy"              |                        如果为类型零值或空值，序列化时忽略该字段 | 
+| "json_name,string[number｜boolen]" |              指定属性的类型，支持string、number、boolen | 
+
+```go
+
+type Student struct { 
+    ID int `json:"-"` // 该字段不进行序列化 
+    Class int `json:"class"` // 该字段与class对应
+    Name string `json:"name,omitempy"` // 如果为类型零值或空值，序列化时忽略该字段 
+    Age int `json:"age,string"` // 指定类型，支持string、number、boolen 
+}
+
+
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type Person struct {
+	Name    string `json:"name"`
+	Age     int    `json:"age"`
+	Address string `json:"address,omitempty"`
+}
+
+func main() {
+	p1 := Person{
+		Name: "Jack",
+		Age:  22,
+	}
+
+	data1, err := json.Marshal(p1)
+	if err != nil {
+		panic(err)
+	}
+
+	// p1 没有 Addr，就不会打印了
+	fmt.Printf("%s\n", data1)
+
+	// ================
+
+	p2 := Person{
+		Name:    "Jack",
+		Age:     22,
+		Address: "China,Japan",
+	}
+
+	data2, err := json.Marshal(p2)
+	if err != nil {
+		panic(err)
+	}
+
+	// p2 则会打印所有
+	fmt.Printf("%s\n", data2)
+}
+
+```
